@@ -7,20 +7,20 @@ services:
         image: "postgres:15-alpine"
         working_dir: /docker
         volumes:
-            - "..:/docker"
+            - ".:/docker"
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=1111
             - POSTGRES_DB=car-app
         ports:
-            - "8084:5432"
+            - "5432:5432"
 
     webserver:
         image: "nginx:alpine"
         working_dir: /docker
         volumes:
-            - "..:/docker"
-            - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+            - ".:/docker"
+            - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/custom.conf"
         ports:
             - "8080:80"
 
@@ -28,6 +28,7 @@ services:
         build: docker/php-fpm
         working_dir: /docker
         volumes:
-            - "..:/docker"
+            - ".:/docker"
             - "./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/fpm/conf.d/99-overrides.ini"
             - "./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/cli/conf.d/99-overrides.ini"
+        command: /bin/sh -c "chown -R www-data:www-data /docker/storage && chmod -R 775 /docker/storage && php-fpm8.4"
