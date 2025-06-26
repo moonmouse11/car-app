@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Http\Controllers\Cars\CarController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/", function () {
-    return [
-        "message" => "Hello, World!",
-    ];
-});
+Route::any(uri: "/cars", action: [CarController::class, "index"]);
+Route::get(uri: "/", action: [CarController::class, "index"]);
