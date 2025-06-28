@@ -16,8 +16,8 @@ class CarController extends Controller
     public function index(): array
     {
         return [
-            "title" => "Cars",
-            "cars" => "Cars here",
+            'title' => 'Cars',
+            'cars' => 'Cars here',
         ];
     }
 }
